@@ -1,5 +1,4 @@
 import SideNav from "./SideNav";
-import Header from "./Header";
 import Footer from "./Footer";
 
 /**
@@ -15,7 +14,6 @@ const Layout = ({ children }) => {
             >
                 <SideNav />
                 <main className="content">
-                    <Header />
                     <div className='container-fluid'>{children}</div>
                     <Footer />
                 </main>

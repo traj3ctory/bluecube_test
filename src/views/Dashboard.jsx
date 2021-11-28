@@ -3,8 +3,10 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import ImgCard from "../components/Card";
-import { getImage } from "../utils/getImage.js";
+import Header from "../components/layout/Header";
+// import { getImage } from "../utils/getImage.js";
 /**
 * @author traj3ctory
 * @function Dashboard
@@ -12,9 +14,15 @@ import { getImage } from "../utils/getImage.js";
 
 const url = `https://api.unsplash.com/photos/?client_id=${process.env.REACT_APP_UNSPLASH_ACCESS}`;
 
+
 const Dashboard = (props) => {
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
+    // SearchParams
+    const [query, setQuery] = useState("");
+    const [page, setPage] = useState(1);
+    const [data, setData] = useState(null);
+    const [hasMore, setHasMore] = useState(true);
 
     const getImage = async () => {
         try {
@@ -28,19 +36,71 @@ const Dashboard = (props) => {
         }
     };
 
+    const handleSearch = async (query) => {
+        const searchUrl = `https://api.unsplash.com/search/photos/?query=${query}&client_id=${process.env.REACT_APP_UNSPLASH_ACCESS}&page=${page}`;
+        try {
+            setData(null)
+            setLoading(true);
+            const resp = await axios.get(searchUrl);
+            if (data !== null) {
+                setData([...data, ...resp.data.results]);
+            } else if (data === null) {
+                setData([...resp.data.results]);
+            }
+        } catch (error) {
+            console.log("error =>", error);
+        } finally {
+            setLoading(false);
+            setPage(page + 1);
+        }
+    };
+
     useEffect(() => {
-        getImage();
-        return () => {
-            // cleanup
+        let source = axios.CancelToken.source();
+
+        if (query !== "") {
+            handleSearch(query);
+        } else {
+            getImage();
+        }
+
+        return function () {
+            source.cancel("Cancelling in cleanup");
         };
-    }, []);
+    }, [query]);
 
 
     return (
         <>
+            <Header find={handleSearch} searchPhoto={setQuery} />
             <Container fluid className="mt-5">
+                {data !== null && (
+                    <>
+                        <h6>Search: {query}</h6>
+                        <InfiniteScroll
+                            dataLength={data.length}
+                            next={handleSearch}
+                            hasMore={hasMore}
+                            loader={<p>Load more...</p>}
+                            endMessage={
+                                <p style={{ textAlign: "center" }}>
+                                    <b>Yay! You have seen it all</b>
+                                </p>
+                            }
+                        >
+                            <Row>
+                                {!loading && data.map((item) => {
+                                    return <Col lg={3} md={4} sm={6} key={item.id} className="mb-4">
+                                        <ImgCard img={item} />
+                                    </Col>
+                                })}
+                            </Row>
+                        </InfiniteScroll>
+                    </>
+                )}
+
                 <Row>
-                    {!loading && image !== null && image.map((item) => {
+                    {!loading && data === null && image !== null && image.map((item) => {
                         return <Col lg={3} md={4} sm={6} key={item.id} className="mb-4">
                             <ImgCard img={item} />
                         </Col>

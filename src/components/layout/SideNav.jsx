@@ -21,7 +21,7 @@ const SideNav = ({show}) => {
                     <small className="px-3">SHARE</small>
                     {menu2.map((el, i) => {
                         return (
-                            <li key={i} className={`${location.pathname === el.path ? "active" : ""}`}>{el.icon}&ensp;<Link to={el.path}>{el.name}</Link></li>
+                            <li key={i} className={`text-white ${location.pathname === el.path ? "active" : ""}`}>{el.icon}&ensp;<Link to={el.path}>{el.name}</Link></li>
                         )
                     })}
 

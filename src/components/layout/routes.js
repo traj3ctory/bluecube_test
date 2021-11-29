@@ -1,8 +1,9 @@
 import { FaHome } from "react-icons/fa";
 import { RiMessage2Fill, RiBuilding2Fill } from "react-icons/ri";
 import { GiChaliceDrops, GiPartyPopper } from "react-icons/gi";
-import { GrConnect } from "react-icons/gr";
 import { MdMilitaryTech, MdGroups } from "react-icons/md";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
+
 export const Route = [
   {
     name: "Home",
@@ -41,7 +42,7 @@ export const Route2 = [
     name: "Connect",
     path: "/",
     exact: true,
-    icon: <GrConnect />,
+    icon: <AiOutlineAppstoreAdd />,
   },
   {
     name: "Parade",

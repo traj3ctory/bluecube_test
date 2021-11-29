@@ -23,7 +23,7 @@ const Dashboard = (props) => {
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(1);
     const [data, setData] = useState(null);
-    const [hasMore] = useState(true);
+    // const [hasMore] = useState(true);
 
     const getImage = async () => {
         try {
@@ -68,6 +68,7 @@ const Dashboard = (props) => {
         return function () {
             source.cancel("Cancelling in cleanup");
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
 

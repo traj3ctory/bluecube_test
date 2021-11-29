@@ -21,6 +21,7 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(false);
     // SearchParams
     const [query, setQuery] = useState("");
+    const [page, setPage] = useState(1);
     const [data, setData] = useState(null);
     // No image was found
     const [noImage, setNoImage] = useState(false);
@@ -40,13 +41,13 @@ const Dashboard = () => {
     };
 
     const handleSearch = async (query) => {
-        const searchUrl = `https://api.unsplash.com/search/photos/?query=${query}&client_id=${process.env.REACT_APP_UNSPLASH_ACCESS}`;
+        const searchUrl = `https://api.unsplash.com/search/photos/?query=${query}&client_id=${process.env.REACT_APP_UNSPLASH_ACCESS}&page=${page}`;
         try {
+            setShow(false);
             setNoImage(false);
             setData(null)
             setLoading(true);
             const resp = await axios.get(searchUrl);
-            console.log(resp.data)
             if (data !== null) {
                 setData([...data, ...resp.data.results]);
             } else if (data === null) {
@@ -60,6 +61,7 @@ const Dashboard = () => {
             console.log("error =>", error);
         } finally {
             setLoading(false);
+            setPage(page + 1);
         }
     };
 

@@ -22,7 +22,7 @@ const ImgCard = (props) => {
                     {/* <h6><FaHeart className="text-danger" />&nbsp;{likes}<br />Photo&nbsp;by&nbsp;{user.name.split('||')[0]}</h6> */}
                     <h6><FaHeart className="text-danger" />&nbsp;{likes}<br />Photo&nbsp;by&nbsp;{user.first_name}</h6>
                     <small><ImLocation2 />&ensp;{user.location || 'Earth'}</small><br />
-                    <small><a className="btn btn-sm btn-primary mt-2" href={links.html} target="_blank" rel="noreferrer">See on Unsplash&ensp;<FaArrowAltCircleRight /></a></small>
+                    <small><a className="border-1 border-bottom text-white mt-2" href={links.html} target="_blank" rel="noreferrer">See on Unsplash&ensp;<FaArrowAltCircleRight /></a></small>
                 </Card.Footer>
             </Card>
             <CardLoader showLoader={loaded} />

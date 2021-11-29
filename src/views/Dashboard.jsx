@@ -3,9 +3,10 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import InfiniteScroll from 'react-infinite-scroll-component';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 import ImgCard from "../components/Card";
 import Header from "../components/layout/Header";
+import Loader from "../components/Loader";
 // import { getImage } from "../utils/getImage.js";
 /**
 * @author traj3ctory
@@ -22,7 +23,7 @@ const Dashboard = (props) => {
     const [query, setQuery] = useState("");
     const [page, setPage] = useState(1);
     const [data, setData] = useState(null);
-    const [hasMore, setHasMore] = useState(true);
+    const [hasMore] = useState(true);
 
     const getImage = async () => {
         try {
@@ -73,11 +74,11 @@ const Dashboard = (props) => {
     return (
         <>
             <Header find={handleSearch} searchPhoto={setQuery} />
-            <Container fluid className="mt-5">
+            <Container fluid className="mt-2">
                 {data !== null && (
                     <>
-                        <h6>Search: {query}</h6>
-                        <InfiniteScroll
+                        <h5 className="d-flex justify-content-end w-100">Search:&ensp;<strong className="text-uppercase"><i>{query}</i></strong></h5>
+                        {/* <InfiniteScroll
                             dataLength={data.length}
                             next={handleSearch}
                             hasMore={hasMore}
@@ -87,7 +88,7 @@ const Dashboard = (props) => {
                                     <b>Yay! You have seen it all</b>
                                 </p>
                             }
-                        >
+                        > */}
                             <Row>
                                 {!loading && data.map((item) => {
                                     return <Col lg={3} md={4} sm={6} key={item.id} className="mb-4">
@@ -95,7 +96,7 @@ const Dashboard = (props) => {
                                     </Col>
                                 })}
                             </Row>
-                        </InfiniteScroll>
+                        {/* </InfiniteScroll> */}
                     </>
                 )}
 
@@ -106,6 +107,8 @@ const Dashboard = (props) => {
                         </Col>
                     })}
                 </Row>
+
+                {loading && <Loader />}
             </Container>
         </>
     )

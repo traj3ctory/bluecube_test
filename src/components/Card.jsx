@@ -8,7 +8,7 @@ import { ImLocation2 } from 'react-icons/im'
 **/
 
 const ImgCard = (props) => {
-    const { urls, id, user, likes, links, blur_hash, alt_description } = props.img;
+    const { urls, id, user, likes, links, alt_description } = props.img;
     return (
         <>
             <Card className="shadow-sm">

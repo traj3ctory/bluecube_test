@@ -8,6 +8,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import { FcBinoculars } from 'react-icons/fc'
 import { BsBellFill } from 'react-icons/bs'
+import { FaHeart } from 'react-icons/fa'
 
 /**
 * @author traj3ctory
@@ -26,31 +27,34 @@ const Header = ({ find, searchPhoto }) => {
 
     return (
         <>
-            <Navbar collapseOnSelect className="shadow-sm" bg="light" variant="light" expand="md">
+            <Navbar collapseOnSelect variant="light" expand="md">
                 <Container>
                     {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
                     {/* <Navbar.Collapse id="basic-navbar-nav"> */}
                     <Nav className="h-100 align-items-center justify-content-between w-100">
 
-                        <form className="w-75" onSubmit={handleClick}>
+                        <form className="w-75 shadow-sm" onSubmit={handleClick}>
                             <InputGroup>
                                 <InputGroup.Text className="icon"><FcBinoculars /></InputGroup.Text>
                                 <FormControl placeholder="Find Something..." name="search" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />
                                 <InputGroup.Text className="button"><Button size="sm" className="px-4" type="submit" value="Search">Search</Button></InputGroup.Text>
                             </InputGroup>
                         </form>
-                        <BsBellFill className="d-none d-md-block" />
+                        <BsBellFill className="d-none d-md-block text-primary fs-3" />
                         <NavDropdown
-                            className="d-none d-md-block"
+                            className="d-none d-md-block btn btn-sm"
                             id="nav-dropdown-dark-example"
                             title="John Doe"
                             menuVariant="dark"
+                            drop='start'
                         >
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                            <NavDropdown.Item href="#">... <FaHeart className="text-danger" /> liked your ...</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            <NavDropdown.Item href="#">... <FaHeart className="text-info" /> liked your ...</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#">... <FaHeart className="text-success" /> liked your ...</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#">... <FaHeart className="text-danger" /> liked your ...</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     {/* </Navbar.Collapse> */}

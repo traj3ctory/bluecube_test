@@ -60,7 +60,7 @@ const Dashboard = () => {
         } catch (error) {
             console.log("error =>", error);
         } finally {
-            setLoading(false);
+            // setLoading(false);
             setPage(page + 1);
         }
     };
@@ -73,19 +73,19 @@ const Dashboard = () => {
         } else {
             getImage();
         }
-
+        
         return function () {
             source.cancel("Cancelling in cleanup");
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
-
-
+    
+    
     return (
         <>
             <Header find={handleSearch} searchPhoto={setQuery} />
             <Container fluid className="mt-2">
-                {data !== null && (
+                {!loading && data !== null && (
                     <>
                         <h5 className="d-flex justify-content-end w-100">Search:&ensp;<strong className="text-uppercase"><i>{query}</i></strong></h5>
                         <Row>
@@ -107,7 +107,7 @@ const Dashboard = () => {
                 </Row>
 
                 {loading && <Loader />}
-                {noImage && show && <Alert variant="info" onClose={() => setShow(false)} dismissible>
+                {!loading && noImage && show && <Alert variant="info" onClose={() => setShow(false)} dismissible>
                     <Alert.Heading>Oh snap! No image was found</Alert.Heading>
                     <p>
                         No image found try another search parameter
